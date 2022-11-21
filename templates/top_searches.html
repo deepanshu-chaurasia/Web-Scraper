@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Searches Page</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+      <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+  <div class="table-users">
+   <div class="header">top searches</div>
+
+   <table cellspacing="0">
+      <tr>
+         <th>Image</th>
+         <th>Name</th>
+         <th>Overall Rating</th>
+         <th>Price</th>
+          <th>Link</th>
+
+      </tr>
+         {% for searches in searches %}
+      <tr>
+          <td><img src= {{searches['thumb']}} > </td>
+          <td>{{searches['Name']}}
+             <form action="/review" method="POST">
+                 <input type="hidden" name="content" id="content" value="{{searches['Link']}}">
+            <button type="submit"> reviews</button>
+        </form>
+<!--             <a href="/review" id="link" >-->
+<!--             {{searches['Name']}}</a>-->
+             </td>
+         <td>{{searches['Rating']}}</td>
+         <td>{{searches['Price']}}</td>
+          <td><a href={{searches['Link']}}>Buy now</a></td>
+       {% endfor %}
+   </table>
+</div>
+
+
+<!--<script>-->
+<!--  document.getElementById('link').addEventListener('click',(e) => {-->
+<!--   fetch('http://127.0.0.1:8001/review')-->
+<!--   .then(function (response) {-->
+<!--	return response.json();-->
+<!--    }).then(function (data) {-->
+<!--	console.log(data);-->
+<!--    }).catch(function (err) {-->
+<!--	console.warn('Something went wrong.', err);-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+</body>
+
+</html>
