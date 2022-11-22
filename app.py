@@ -72,7 +72,6 @@ def top_searches():
         except Exception as e:
             print('The Exception message is: ', e)
             return 'something is wrong'
-    # return render_template('results.html')
 
     else:
         return render_template('index.html')
@@ -95,15 +94,13 @@ def index():
             prodRes = requests.get(pd)
             prodRes.encoding = 'utf-8'
             prod_html = bs(prodRes.text, "html.parser")
-            try:
-                rLink = prod_html.find_all("div", {"class": "col JOpGWq"})
-                reviewLink = "https://www.flipkart.com" + rLink[0].a["href"]
-                b_reviewLink = bs(reviewLink, "html.parser")
-                rLinkRes = requests.get(b_reviewLink)
-                rLinkRes.encoding = 'utf-8'
-                rlink_html = bs(rLinkRes.text, "html.parser")
-            except:
-                print("No Reviws")
+
+            rLink = prod_html.find_all("div", {"class": "col JOpGWq"})
+            reviewLink = "https://www.flipkart.com" + rLink[0].a["href"]
+            b_reviewLink = bs(reviewLink, "html.parser")
+            rLinkRes = requests.get(b_reviewLink)
+            rLinkRes.encoding = 'utf-8'
+            rlink_html = bs(rLinkRes.text, "html.parser")
 
             commentBoxes = rlink_html.find_all('div', {'class': "col _2wzgFH K0kLPL"})
 
@@ -118,28 +115,24 @@ def index():
                 try:
                     # overallRating.encode(encoding='utf-8')
                     rating = i.div.div.text
-
                 except:
                     rating = "NO RATING"
 
                 try:
                     # commentHead.encode(encoding='utf-8')
                     commentHead = i.find('p', {'class': '_2-N8zT'}).text
-
                 except:
                     commentHead = "NO commentHead"
 
                 try:
                     # comtag.encode(encoding='utf-8')
                     comtag = i.find_all('div', {'class': ''})
-
                 except:
                     comtag = "NO comment Tag"
 
                 try:
                     # custComment.encode(encoding='utf-8')
                     custComment = comtag[0].div.text
-
                 except:
                     custComment = "NO comment"
 
@@ -149,7 +142,7 @@ def index():
 
         except Exception as e:
             print('The Exception message is: ', e)
-            return 'something is wrong'
+            return 'No reviews available for this product.'
     else:
         return render_template('index.html')
 
@@ -157,3 +150,4 @@ def index():
 if __name__ == "__main__":
     # app.run(host='127.0.0.1', port=8001, debug=True)
     app.run(debug=True)
+
