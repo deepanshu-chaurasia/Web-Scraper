@@ -25,22 +25,20 @@
          <th>Name</th>
          <th>Overall Rating</th>
          <th>Price</th>
+          <th>Reviews</th>
           <th>Link</th>
 
       </tr>
          {% for searches in searches %}
       <tr>
           <td><img src= {{searches['thumb']}} > </td>
-          <td>{{searches['Name']}}
-             <form action="/review" method="POST">
-                 <input type="hidden" name="content" id="content" value="{{searches['Link']}}">
-            <button type="submit"> reviews</button>
-        </form>
-<!--             <a href="/review" id="link" >-->
-<!--             {{searches['Name']}}</a>-->
-             </td>
+          <td>{{searches['Name']}}</td>
          <td>{{searches['Rating']}}</td>
          <td>{{searches['Price']}}</td>
+          <td><form action="/review" method="POST">
+                 <input type="hidden" name="content" id="content" value="{{searches['Link']}}">
+            <button type="submit"> reviews</button>
+        </form></td>
           <td><a href={{searches['Link']}}>Buy now</a></td>
        {% endfor %}
    </table>
